@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btn1, btn2, btn_clear, btn_plus, btn_equal;
+    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn_mult, btn_sub, btn_div, btn_clear, btn_plus, btn_equal, btn_dot;
     TextView text_display;
 
     // This is to evaluate the math expression
@@ -24,52 +24,90 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //Initializes all the number buttons from 0 - 9
         btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
+        btn3 = (Button) findViewById(R.id.btn3);
+        btn4 = (Button) findViewById(R.id.button5);
+        btn5 = (Button) findViewById(R.id.button6);
+        btn6 = (Button) findViewById(R.id.button7);
+        btn7 = (Button) findViewById(R.id.button9);
+        btn8 = (Button) findViewById(R.id.button10);
+        btn9 = (Button) findViewById(R.id.button11);
+
+        //Initializes all operations for the calc
         btn_plus = (Button) findViewById(R.id.btn_plus);
+        btn_mult = (Button) findViewById(R.id.button12);
+        btn_sub = (Button) findViewById(R.id.button8);
+        btn_div = (Button) findViewById(R.id.button16);
+
+        //Initializes all special buttons (Clear, add & decimal)
         btn_equal = (Button) findViewById(R.id.btn_equal);
         btn_clear = (Button) findViewById(R.id.btn_clear);
+        btn_dot = (Button) findViewById(R.id.btn_dot);
         text_display = (TextView) findViewById(R.id.textview_input_display);
-
         setClickListeners();
     }
 
     private void setClickListeners() {
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn_plus.setOnClickListener(this);
-        btn_equal.setOnClickListener(this);
-        btn_clear.setOnClickListener(this);
+        //Array that holds all button ID's
+        int[] buttonIds = {
+                R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.button5, R.id.button6,
+                R.id.button7, R.id.button9, R.id.button10, R.id.button11,
+                R.id.btn_plus, R.id.button12, R.id.button8, R.id.button16,
+                R.id.btn_equal, R.id.btn_clear, R.id.btn_dot
+        };
+        //enhanced for loop that goes through the previous array and adds a listener to all of them.
+        for (int intID : buttonIds) {
+            findViewById(intID).setOnClickListener(this);
+        }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn1:
-                addNumber("1");
-                break;
-            case R.id.btn2:
-                addNumber("2");
-                break;
-            case R.id.btn_plus:
-                addNumber("+");
-                break;
-            case R.id.btn_equal:
-                String result = null;
-                try {
-                    result = evaluate(text_display.getText().toString());
-                    text_display.setText(result);
-                } catch (Exception e) {
-                    text_display.setText("Error");
-                }
-                break;
-            case R.id.btn_clear:
-                clear_display();
-                break;
+        int[] numButtonID = {
+                R.id.btn0,
+                R.id.btn1,
+                R.id.btn2,
+                R.id.btn3,
+                R.id.button5,
+                R.id.button6,
+                R.id.button7,
+                R.id.button9,
+                R.id.button10,
+                R.id.button11,
+                R.id.btn_plus,
+                R.id.button12,
+                R.id.button8,
+                R.id.button16,
+                R.id.btn_dot
+        };
+        //enhanced for loop that goes through the previous array and makes them text
+        for(int id : numButtonID){
+            if(id == v.getId()){
+                //Makes a temp button that uses the id to find the text associated with the button
+                Button temp = findViewById(id);
+                //Then uses the add number method to make it a string to parse into the viewer. (Ergo, just displays the number on the screen)
+                addNumber(temp.getText().toString());
+            }
+        }
+        //For the equal button case, we instead call the eval method to get the math output
+        if(v.getId() == R.id.btn_equal){
+            //Included code, should be modified
+            String result = null;
+            try {
+                result = evaluate(text_display.getText().toString());
+                text_display.setText(result);
+            } catch (Exception e) {
+                text_display.setText("Error");
+            }
+            //Lastly, checks and clears the display
+        } else if (v.getId() == R.id.btn_clear){
+            clear_display();
         }
     }
 
+    //Recursive call, need to be fixed by one of you
     private String evaluate(String expression) throws Exception {
         String result = evaluate(expression);
         BigDecimal decimal = new BigDecimal(result);

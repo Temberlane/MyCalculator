@@ -3,7 +3,7 @@
     <!-- Displays text styling -->
     <style name="Calc.Display">
         <item name="android:textColor">@color/calc_text</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">50sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:gravity">end</item>
         <item name="android:padding">16dp</item>

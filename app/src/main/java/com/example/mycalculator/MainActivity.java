@@ -99,7 +99,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result = evaluate(text_display.getText().toString());
                 text_display.setText(result);
             } catch (Exception e) {
+                // Debug message below do not print.
+                String message = (e.getMessage() != null && !e.getMessage().isEmpty()) ? e.getMessage() : e.toString();
                 text_display.setText("Error");
+//                text_display.setText(message);
+                android.util.Log.e("MyCalculator", "Evaluation error", e);
             }
             //Lastly, checks and clears the display
         } else if (v.getId() == R.id.btn_clear){
@@ -107,11 +111,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //Recursive call, need to be fixed by one of you
     private String evaluate(String expression) throws Exception {
-        String result = evaluate(expression);
-        BigDecimal decimal = new BigDecimal(result);
-        return decimal.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+        String processedExpression = expression
+                .replace("×", "*")
+                .replace("÷", "/");
+        
+        Expression expr = new ExpressionBuilder(processedExpression).build();
+        Double result = expr.evaluate();
+        
+        // Check if the result is effectively an integer
+        if (result == Math.floor(result) && !Double.isInfinite(result)) {
+            return String.valueOf(result.longValue());
+        } else {
+            BigDecimal decimal = new BigDecimal(result);
+            decimal = decimal.setScale(10, BigDecimal.ROUND_HALF_UP);
+            return decimal.stripTrailingZeros().toPlainString();
+        }
     }
 
     private void addNumber(String number) {

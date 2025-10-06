@@ -4,8 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/calc_bg"  <!-- app background from colors.xml -->
     tools:context=".MainActivity">
 
+    <!-- Display line uses the Calc.Display text style -->
+    <TextView
+        android:id="@+id/textview_input_display"
+        style="@style/Calc.Display"        <!-- apply display text color/font/size -->
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/display"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Keypad area -->
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"          <!-- stretch to parent width -->
+        android:layout_height="wrap_content"
+        android:padding="8dp"               <!-- small inner padding -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
@@ -14,163 +36,152 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!-- Row 1: 1 2 3 + (digits use Calc.BtnBase; + uses Calc.BtnOp) -->
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/btn1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn1" />
 
             <Button
                 android:id="@+id/btn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn2" />
 
             <Button
                 android:id="@+id/btn3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn3" />
 
             <Button
                 android:id="@+id/btn_plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnOp"       <!-- operator tint -->
                 android:layout_margin="5dp"
                 android:text="@string/plus" />
         </TableRow>
 
+        <!-- Row 2: 4 5 6 - -->
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/button5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn4" />
 
             <Button
                 android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn5" />
 
             <Button
                 android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn6" />
 
             <Button
                 android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnOp"       <!-- operator tint -->
                 android:layout_margin="5dp"
                 android:text="@string/minus" />
         </TableRow>
 
+         <!-- Row 3: 7 8 9 × -->
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/button9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn7" />
 
             <Button
                 android:id="@+id/button10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn8" />
 
             <Button
                 android:id="@+id/button11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnBase"
                 android:layout_margin="5dp"
                 android:text="@string/btn9" />
 
             <Button
                 android:id="@+id/button12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Calc.BtnOp"       <!-- operator tint -->
                 android:layout_margin="5dp"
                 android:text="@string/mult" />
         </TableRow>
 
+        <!-- Row 4: C 0 . ÷ -->
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/btn_clear"
+                style="@style/Calc.BtnBase"     <!-- keep base (neutral) -->
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:text="@string/btn_clear" />
 
             <Button
                 android:id="@+id/btn0"
+                style="@style/Calc.BtnBase"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:text="@string/btn0" />
 
             <Button
                 android:id="@+id/btn_dot"
+                style="@style/Calc.BtnBase"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:text="@string/btn_dot" />
 
             <Button
                 android:id="@+id/button16"
+                style="@style/Calc.BtnOp"        <!-- operator tint -->
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:text="@string/division" />
         </TableRow>
 
+        <!-- Row 5: = (full row, styled) -->
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/btn_equal"
+                style="@style/Calc.BtnEq"         <!-- prominent equals -->
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/equal" />
         </TableRow>
+        
     </TableLayout>
 
-    <TextView
-        android:id="@+id/textview_input_display"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:hint="@string/display"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="50sp"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Displays text styling -->
+    <style name="Calc.Display">
+        <item name="android:textColor">@color/calc_text</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">end</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@color/calc_panel</item>
+    </style>
+
+    <!-- Base button look: text color + tint + font -->
+    <style name="Calc.BtnBase" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/calc_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:backgroundTint">@color/calc_digit</item>
+        <item name="rippleColor">@color/calc_ripple</item>
+    </style>
+
+    <!-- Operators inherit base but use operator tint -->
+    <style name="Calc.BtnOp" parent="Calc.BtnBase">
+        <item name="android:backgroundTint">@color/calc_op</item>
+    </style>
+
+    <!-- Equals inherits operator and bolds the label -->
+    <style name="Calc.BtnEq" parent="Calc.BtnOp">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
+

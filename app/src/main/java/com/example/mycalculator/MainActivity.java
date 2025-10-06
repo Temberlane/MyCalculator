@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 
 
@@ -118,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         
         Expression expr = new ExpressionBuilder(processedExpression).build();
         Double result = expr.evaluate();
+        // Handle NaN/Infinity 
+        if (Double.isNaN(result) || Double.isInfinite(result)) return "Error";
         
         // Check if the result is effectively an integer
         if (result == Math.floor(result) && !Double.isInfinite(result)) {
@@ -125,6 +128,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             BigDecimal decimal = new BigDecimal(result);
             decimal = decimal.setScale(10, BigDecimal.ROUND_HALF_UP);
+            // round to 10 decimal places (HALF_UP), then drop any trailing zeros
+            BigDecimal decimal = new BigDecimal(Double.toString(result))
+            .setScale(10, RoundingMode.HALF_UP)
+            .stripTrailingZeros();
             return decimal.stripTrailingZeros().toPlainString();
         }
     }

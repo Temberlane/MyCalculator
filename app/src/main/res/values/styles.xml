@@ -1,5 +1,8 @@
 <resources>
 
+    <!-- Base Calculator style (this was missing) -->
+    <style name="Calc" />
+
     <!-- Displays text styling -->
     <style name="Calc.Display">
         <item name="android:textColor">@color/calc_text</item>
